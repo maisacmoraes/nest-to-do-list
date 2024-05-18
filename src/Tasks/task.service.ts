@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { Task } from '@prisma/client';
+import { TaskStatus } from '@prisma/client'; // Import the 'TaskStatus' type
 
 @Injectable()
 export class TaskService {
@@ -11,23 +12,24 @@ export class TaskService {
     return allTasks;
   }
 
-  // async getTaskById(id: number) {
-  //   const task = await this.prisma.task.findUnique({
-  //     where: { id },
-  //   });
-  //   return task;
-  // }
+  async getTaskById(params: { where: number }): Promise<Task> {
+    const { where } = params;
+    const task = await this.prisma.task.findUnique({
+      where: { id: where },
+    });
+    return task;
+  }
 
   async createTask(data: {
     title: string;
     description: string;
-    status: string;
+    status: TaskStatus; // Fix: Change the type of 'status' to 'TaskStatus'
   }) {
     const task = await this.prisma.task.create({
       data: {
         title: data.title,
         description: data.description,
-        status: data.status,
+        status: data.status.toLocaleUpperCase() as TaskStatus,
       },
     });
     return task;
@@ -42,8 +44,9 @@ export class TaskService {
   }
 
   async deleteTask(id: number) {
-    return this.prisma.task.delete({
+    this.prisma.task.delete({
       where: { id },
     });
+    return { messase: 'Task excluída' };
   }
 }

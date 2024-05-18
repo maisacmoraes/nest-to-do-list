@@ -11,10 +11,10 @@ export class TaskController {
     return this.taskService.getAllTasks();
   }
 
-  // @Get(':id')
-  // getTaskById(id: number) {
-  //   return this.taskService.getTaskById(id);
-  // }
+  @Get(':id')
+  getTaskById(@Param('id') id: number) {
+    return this.taskService.getTaskById({ where: Number(id) });
+  }
 
   @Post()
   async createTask(@Body() body: CreateTaskBody) {
