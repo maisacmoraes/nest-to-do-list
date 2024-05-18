@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TaskService } from './task.service';
+import { CreateTaskBody } from 'src/dtos/create-task-body';
 
 @Controller('tasks')
 export class TaskController {
@@ -16,7 +17,7 @@ export class TaskController {
   // }
 
   @Post()
-  async createTask(@Body() body: any) {
+  async createTask(@Body() body: CreateTaskBody) {
     const { title, description, status } = body;
 
     const task = await this.taskService.createTask({
