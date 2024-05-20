@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../database/prisma.service';
 import { Task } from '@prisma/client';
 import { TaskStatus } from '@prisma/client'; // Import the 'TaskStatus' type
+import { PrismaService } from 'prisma/prisma.service';
 
 @Injectable()
 export class TaskService {
