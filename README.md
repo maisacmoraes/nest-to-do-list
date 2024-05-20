@@ -1,8 +1,9 @@
-# Teste de Desenvolvimento de Projeto com Nest.js e PostgreSQL para Desenvolvedor Junior (Utilizando Prisma)
+# Gerenciador de tarefas - Projeto com Nest.js, PostgreSQL e Prisma (teste técnico para Desenvolvedor Junior)
+
 
 ## Descrição do Projeto
 
-Aplicação de gerenciamento de tarefas utilizando Nest.js como framework backend e PostgreSQL como banco de dados. A aplicação permite que os usuários criem, leiam, atualizem e removam tarefas.
+Aplicação de gerenciamento de tarefas utilizando Nest.js como framework Backend, PostgreSQL como banco de dados e Prima. A aplicação permite que os usuários criem, leiam, atualizem e removam tarefas.
 
 ## Requisitos do Projeto
 
@@ -44,7 +45,6 @@ A documentação da API é feita utilizando Swagger e inclui informações sobre
 ### Diferenciais
 
 - **Autenticação e Autorização:** Sistema de autenticação para os usuários da aplicação, utilizando JWT (JSON Web Tokens).
-- **Testes Automatizados:** Escrever testes automatizados para garantir a qualidade e robustez do código, incluindo testes unitários, testes de integração e testes E2E (end-to-end).
 
 ## Como Iniciar o Projeto
 
