@@ -7,45 +7,57 @@ import { PrismaService } from 'prisma/prisma.service';
 export class TaskService {
   constructor(private prisma: PrismaService) {}
 
-  async getAllTasks() {
-    const allTasks = await this.prisma.task.findMany();
+  async getAllTasks(userId: number) {
+    const allTasks = await this.prisma.task.findMany({
+      where: { userId: userId },
+    });
     return allTasks;
   }
 
-  async getTaskById(params: { where: number }): Promise<Task> {
-    const { where } = params;
+  async getTaskById(userId: number, id: number): Promise<Task> {
     const task = await this.prisma.task.findUnique({
-      where: { id: where },
-    });
-    return task;
-  }
-
-  async createTask(data: {
-    title: string;
-    description: string;
-    status: TaskStatus; // Fix: Change the type of 'status' to 'TaskStatus'
-  }) {
-    const task = await this.prisma.task.create({
-      data: {
-        title: data.title,
-        description: data.description,
-        status: data.status.toLocaleUpperCase() as TaskStatus,
+      where: {
+        userId: userId,
+        id: id,
       },
     });
     return task;
   }
 
-  async updateTask(params: { where: number; data }): Promise<Task> {
-    const { where, data } = params;
+  async createTask(
+    userId: number | undefined,
+    data: {
+      title: string;
+      description: string;
+      status: TaskStatus;
+    },
+  ) {
+    const task = await this.prisma.task.create({
+      data: {
+        title: data.title,
+        description: data.description,
+        status: data.status.toLocaleUpperCase() as TaskStatus,
+        user: { connect: { id: userId } },
+      },
+    });
+
+    return task;
+  }
+
+  async updateTask(userId: number, id: number, data): Promise<Task> {
     return this.prisma.task.update({
-      data,
-      where: { id: where },
+      data: {
+        title: data.title,
+        description: data.description,
+        status: data.status.toLocaleUpperCase() as TaskStatus,
+      },
+      where: { userId: userId, id: id },
     });
   }
 
-  async deleteTask(id: number) {
+  async deleteTask(userId: number, id: number) {
     this.prisma.task.delete({
-      where: { id },
+      where: { userId: userId, id: id },
     });
     return { messase: 'Task excluída' };
   }

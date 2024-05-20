@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskBody } from '../Tasks/dtos/create-task-body';
 import { ApiTags } from '@nestjs/swagger';
@@ -8,21 +16,24 @@ import { ApiTags } from '@nestjs/swagger';
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
-  @Get()
-  getAllTasksr() {
-    return this.taskService.getAllTasks();
+  @Get(':userId')
+  getAllTasksr(@Param('userId') userId: number) {
+    return this.taskService.getAllTasks(+userId);
   }
 
-  @Get(':id')
-  getTaskById(@Param('id') id: number) {
-    return this.taskService.getTaskById({ where: Number(id) });
+  @Get(':userId/:id')
+  getTaskById(@Param('userId') userId: number, @Param('id') id: number) {
+    return this.taskService.getTaskById(+userId, +id);
   }
 
-  @Post()
-  async createTask(@Body() body: CreateTaskBody) {
+  @Post(':userId/:id')
+  async createTask(
+    @Param('userId') userId: number,
+    @Body() body: CreateTaskBody,
+  ) {
     const { title, description, status } = body;
 
-    const task = await this.taskService.createTask({
+    const task = await this.taskService.createTask(+userId, {
       title,
       description,
       status,
@@ -31,16 +42,17 @@ export class TaskController {
     return task;
   }
 
-  @Post(':id')
-  updateTask(@Param('id') id: number, @Body() body: any) {
-    return this.taskService.updateTask({
-      where: Number(id),
-      data: body,
-    });
+  @Patch(':userId/:id')
+  updateTask(
+    @Param('userId') userId: number,
+    @Param('id') id: number,
+    @Body() body: any,
+  ) {
+    return this.taskService.updateTask(+userId, +id, body);
   }
 
-  @Delete(':id')
-  deleteTask(@Param('id') id: number) {
-    return this.taskService.deleteTask(Number(id));
+  @Delete(':userId/:id/')
+  deleteTask(@Param('userId') userId: number, @Param('id') id: number) {
+    return this.taskService.deleteTask(+userId, +id);
   }
 }
