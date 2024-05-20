@@ -1,73 +1,90 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Teste de Desenvolvimento de Projeto com Nest.js e PostgreSQL para Desenvolvedor Junior (Utilizando Prisma)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descrição do Projeto
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Aplicação de gerenciamento de tarefas utilizando Nest.js como framework backend e PostgreSQL como banco de dados. A aplicação permite que os usuários criem, leiam, atualizem e removam tarefas.
 
-## Description
+## Requisitos do Projeto
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Configuração do Projeto
 
-## Installation
+- Nest.js
+- Banco de dados PostgreSQL
+- Prisma
 
-```bash
-$ npm install
-```
+### Modelagem de Dados
 
-## Running the app
+Entidade `Task` que representa uma tarefa, com os seguintes campos:
+- `id` (chave primária)
+- `title` (título da tarefa)
+- `description` (descrição da tarefa)
+- `status` (status da tarefa, por exemplo: “pendente”, “em andamento”, “concluída”)
+- `createdAt` (data de criação da tarefa)
+- `updatedAt` (data da última atualização da tarefa)
 
-```bash
-# development
-$ npm run start
+### API RESTful
 
-# watch mode
-$ npm run start:dev
+A API segue os princípios do REST e utiliza os métodos HTTP adequados para cada operação (GET, POST, PUT, DELETE). Utiliza os recursos do Nest.js, como controllers, services e modules, para estruturar a aplicação de forma modular e organizada.
 
-# production mode
-$ npm run start:prod
-```
+### Funcionalidades da Aplicação
 
-## Test
+Endpoints para as seguintes operações:
+- Listar todas as tarefas
+- Criar uma nova tarefa
+- Visualizar os detalhes de uma tarefa específica
+- Atualizar uma tarefa existente
+- Excluir uma tarefa
 
-```bash
-# unit tests
-$ npm run test
+Implementa validações adequadas para os dados de entrada (por exemplo, não permite criar uma tarefa sem um título).
 
-# e2e tests
-$ npm run test:e2e
+### Documentação da API
 
-# test coverage
-$ npm run test:cov
-```
+A documentação da API é feita utilizando Swagger e inclui informações sobre os parâmetros de entrada, possíveis códigos de resposta e exemplos de requisições.
 
-## Support
+### Diferenciais
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- **Autenticação e Autorização:** Sistema de autenticação para os usuários da aplicação, utilizando JWT (JSON Web Tokens).
+- **Testes Automatizados:** Escrever testes automatizados para garantir a qualidade e robustez do código, incluindo testes unitários, testes de integração e testes E2E (end-to-end).
 
-## Stay in touch
+## Como Iniciar o Projeto
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Pré-requisitos
 
-## License
+- Node.js instalado
+- PostgreSQL instalado e configurado
+- Prisma CLI instalado globalmente (`npm install -g prisma`)
 
-Nest is [MIT licensed](LICENSE).
+### Passos para Iniciar
+
+1. Clone o repositório:
+    ```bash
+    git clone https://github.com/seu-usuario/nest-to-do-list.git
+    cd nest-to-do-list
+    ```
+
+2. Instale as dependências:
+    ```bash
+    npm install
+    ```
+
+3. Configure o banco de dados PostgreSQL:
+    - Crie um banco de dados PostgreSQL.
+    - Configure a conexão com o banco de dados no arquivo `.env`:
+      ```env
+      DATABASE_URL="postgresql://usuario:senha@localhost:5432/nome-do-banco"
+      ```
+
+4. Inicialize o Prisma:
+    ```bash
+    npx prisma init
+    npx prisma migrate dev --name init
+    ```
+
+5. Inicie a aplicação:
+    ```bash
+    npm run start:dev
+    ```
+
+### Documentação da API
+
+Para acessar a documentação da API, inicie a aplicaçã
